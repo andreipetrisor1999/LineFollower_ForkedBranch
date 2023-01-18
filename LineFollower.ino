@@ -1,7 +1,4 @@
- #include <QTRSensors.h>
-
-#define CALIBRATION_INTERVAL 400
-#define STOP_INTERVAL 800
+#include <QTRSensors.h>
 
 const int m11Pin = 7;
 const int m12Pin = 6;
@@ -10,20 +7,29 @@ const int m22Pin = 4;
 const int m1Enable = 11;
 const int m2Enable = 10;
 
-const int maxSpeed = 255;
 const int minSpeed = -255;
+const int maxSpeed = 255;
 const int baseSpeed = 255;
 const int calibrationSpeed = 150;
 
 const int sensorCount = 6;
 
+const int blackLineDetectionThresholdValue = 600;
+const int otherThanBlackLineDetectionValue = 500;
+
+const int minSensorValue = 0;
+const int maxSensorValue = 5000;
+const int minErrorValue = -45;
+const int maxErrorValue = 45;
+
+const int calibrationSteps = 250;
+
+int sensorValues[sensorCount];
+int sensors[sensorCount] = {0, 0, 0, 0, 0, 0};
+
 int m1Speed = 0;
 int m2Speed = 0;
 int motorSpeed;
-
-float kp = 30;
-float ki = 0.08;
-float kd = 150;
 
 int p = 0;
 int i = 0;
@@ -32,10 +38,11 @@ int d = 0;
 int error = 0;
 int lastError = 0;
 
-QTRSensors qtr;
+float kp = 30;
+float ki = 0.08;
+float kd = 150;
 
-int sensorValues[sensorCount];
-int sensors[sensorCount] = {0, 0, 0, 0, 0, 0};
+QTRSensors qtr;
 
 
 void setup() {
@@ -53,16 +60,18 @@ void setup() {
   pinMode(LED_BUILTIN, OUTPUT);
   digitalWrite(LED_BUILTIN, HIGH);
   
-  // calibrate the sensor. For maximum grade the line follower should do the movement itself, without human interaction.
   setMotorSpeed(calibrationSpeed, -calibrationSpeed);
-  for (uint16_t i = 0; i < 250; i++) {
+  for (uint16_t i = 0; i < calibrationSteps; ++i) {
     qtr.calibrate();
+
     qtr.read(sensorValues);
 
-    if (sensorValues[0] > 600 && sensorValues[1] < 500) {
+    // The robot sensor has reached the rightmost position, (only the first sensor is detecting the black line) so the robot has to turn to the left
+    if (sensorValues[0] > blackLineDetectionThresholdValue && sensorValues[1] < otherThanBlackLineDetectionValue) {
       setMotorSpeed(-calibrationSpeed, calibrationSpeed);
     }
-    if (sensorValues[sensorCount - 1] > 600 && sensorValues[sensorCount - 2] < 500) {
+    // The robot sensor has reached the leftmost position, (only the last sensor is detecting the black line) so the robot has to turn to the right
+    if (sensorValues[sensorCount - 1] > blackLineDetectionThresholdValue && sensorValues[sensorCount - 2] < otherThanBlackLineDetectionValue) {
       setMotorSpeed(calibrationSpeed, -calibrationSpeed);
     }
   }
@@ -79,14 +88,14 @@ void loop() {
 
 
 void pidControl(float kp, float ki, float kd) {
-  error = map(qtr.readLineBlack(sensorValues), 0, 5000, -45, 45);
+  error = map(qtr.readLineBlack(sensorValues), minSensorValue, maxSensorValue, minErrorValue, maxErrorValue);
 
   p = error;
   i = i + error;
   d = error - lastError;
   lastError = error;
 
-  motorSpeed = kp * p + ki * i + kd * d; // = error in this case
+  motorSpeed = kp * p + ki * i + kd * d;
 }
 
 
