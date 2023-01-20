@@ -1,8 +1,10 @@
 # LineFollower
 
-## About ❓
+### 🏁 ◼◼◼ 🏎
 
-Arduino project developed during the Introduction to Robotics course taken in the 3rd year at the Faculty of Mathematics and Computer Science, University of Bucharest.
+## About
+
+Arduino team project developed during the Introduction to Robotics course taken in the 3rd year at the Faculty of Mathematics and Computer Science, University of Bucharest.
 
 ## Project Details 📑
 
@@ -34,3 +36,8 @@ Arduino project developed during the Introduction to Robotics course taken in th
 ![from the front](https://user-images.githubusercontent.com/87432371/213258303-9be18188-8e27-4d28-aa3b-0b191b589f92.jpeg)
 
 **Robot Showcase 🤖:** https://www.youtube.com/watch?v=77cRA0fMZrk&ab_channel=AlexandruSasu
+
+## Contributors 💻
+
+- https://github.com/alexsasu
+- https://github.com/andreipetrisor1999
