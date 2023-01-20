@@ -4,11 +4,14 @@
 
 ## About
 
-Arduino team project developed during the Introduction to Robotics course taken in the 3rd year at the Faculty of Mathematics and Computer Science, University of Bucharest.
+Arduino two-person project developed during a one-day hackathon, at the Introduction to Robotics course taken in the 3rd year at the Faculty of Mathematics and Computer Science, University of Bucharest.
 
 ## Project Details 📑
 
 **Requirements:** Program the makeshift car, so that it follows the racetrack consisting of a black line that loops, as fast and as correct (no shortcuts between parts of the track, no leaving the track, and no turning back on the track; the only allowed movement is the continuous movement along the black line) as possible. The QTR sensor should calibrate itself right before the robot starts traversing the track (meaning no manual calibration of the sensor). Using a PID controller, define the characteristics of the robot's movement.
+
+**Functionality:** At first, while on top of the black line, the robot calibrates its sensor by repeatedly moving left and right, learning this way to recognize the black line whenever it appears in front of the sensor, and to dismiss surfaces other than the black line. After a short period of calibration, the robot will attempt to follow any black surface in front of its sensor, while attempting to calculate its speed and to determine its movement behavior through the use of a PID controller.
+> Note: Our team's robot managed to finish the racetrack below in **15.430 seconds**!
 
 **Components Used:**
 * 1 Arduino Uno
@@ -37,7 +40,7 @@ Arduino team project developed during the Introduction to Robotics course taken 
 
 **Robot Showcase 🤖:** https://www.youtube.com/watch?v=77cRA0fMZrk&ab_channel=AlexandruSasu
 
-## Contributors 💻
+## Project Contributors 💻
 
 - https://github.com/alexsasu
 - https://github.com/andreipetrisor1999
