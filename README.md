@@ -45,5 +45,5 @@ Arduino two-person project developed during a one-day hackathon, at the Introduc
 
 ## Project Contributors 💻
 
-- https://github.com/alexsasu
-- https://github.com/andreipetrisor1999
+- [https://github.com/alexsasu](https://github.com/alexsasu/LineFollower)
+- [https://github.com/andreipetrisor1999](https://github.com/andreipetrisor1999/LineFollower_ForkedBranch)
