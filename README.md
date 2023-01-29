@@ -1,4 +1,4 @@
-# LineFollower
+# LineFollower - Lightning McQueen
 
 ### 🏁 ◼◼◼ 🏎
 
